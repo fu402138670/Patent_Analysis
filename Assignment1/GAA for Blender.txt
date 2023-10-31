@@ -1,0 +1,134 @@
+import bpy
+
+# 清空場景中的所有對象
+bpy.ops.object.select_all(action='SELECT')
+bpy.ops.object.delete()
+
+# 創建Substrate（矩形平面）
+bpy.ops.mesh.primitive_cube_add(size=1, enter_editmode=False, location=(0, 0, 0.5))
+substrate = bpy.context.object
+substrate.scale.x = 5
+substrate.scale.y = 5
+substrate.scale.z = 1
+
+# 創建用於挖孔的立方體
+bpy.ops.mesh.primitive_cube_add(size=1, enter_editmode=False, location=(0, 2.75, 0.75))
+hole_cube = bpy.context.object
+hole_cube.scale.x = 5
+hole_cube.scale.y = 4.5
+hole_cube.scale.z = 0.5
+
+# 選擇substrate並設置為活動對象
+bpy.ops.object.select_all(action='DESELECT')
+substrate.select_set(True)
+bpy.context.view_layer.objects.active = substrate
+
+# 添加布尔修飾器
+bool_modifier = substrate.modifiers.new(name="Hole", type='BOOLEAN')
+bool_modifier.operation = 'DIFFERENCE'
+bool_modifier.object = hole_cube
+
+# 應用布尔修飾器
+bpy.ops.object.modifier_apply({"object": substrate}, modifier=bool_modifier.name)
+
+# 刪除用於挖孔的立方體
+bpy.ops.object.select_all(action='DESELECT')
+hole_cube.select_set(True)
+bpy.ops.object.delete()
+
+# 創建用於挖孔的立方體
+bpy.ops.mesh.primitive_cube_add(size=1, enter_editmode=False, location=(0, -2.75, 0.75))
+hole_cube = bpy.context.object
+hole_cube.scale.x = 5
+hole_cube.scale.y = 4.5
+hole_cube.scale.z = 0.5
+
+# 選擇substrate並設置為活動對象
+bpy.ops.object.select_all(action='DESELECT')
+substrate.select_set(True)
+bpy.context.view_layer.objects.active = substrate
+
+# 添加布尔修飾器
+bool_modifier = substrate.modifiers.new(name="Hole", type='BOOLEAN')
+bool_modifier.operation = 'DIFFERENCE'
+bool_modifier.object = hole_cube
+
+# 應用布尔修飾器
+bpy.ops.object.modifier_apply({"object": substrate}, modifier=bool_modifier.name)
+
+# 刪除用於挖孔的立方體
+bpy.ops.object.select_all(action='DESELECT')
+hole_cube.select_set(True)
+bpy.ops.object.delete()
+
+
+# 在第一個孔中添加STI（淺溝隔離）
+bpy.ops.mesh.primitive_cube_add(size=1, enter_editmode=False, location=(0, 1.5, 0.75))
+sti_cube1 = bpy.context.object
+sti_cube1.scale.x = 5
+sti_cube1.scale.y = 2
+sti_cube1.scale.z = 0.5
+
+# 為STI設置淡藍色材質
+mat = bpy.data.materials.new(name="STI_Material")
+mat.diffuse_color = (0.5, 0.5, 1, 1)  # 淡藍色
+sti_cube1.data.materials.append(mat)
+
+# 在第二個孔中添加STI（淺溝隔離）
+bpy.ops.mesh.primitive_cube_add(size=1, enter_editmode=False, location=(0, -1.5, 0.75))
+sti_cube2 = bpy.context.object
+sti_cube2.scale.x = 5
+sti_cube2.scale.y = 2
+sti_cube2.scale.z = 0.5
+
+# 為STI設置淡藍色材質
+sti_cube2.data.materials.append(mat)
+
+# 在Substrate上方距離0.5，沿著Y軸方向放置第1層DS
+ds_y_position = 0  # Y軸上的位置，根据需要进行调整
+ds_z_position = substrate.scale.z + 0.25  # 在Substrate上方距離0.5
+
+bpy.ops.mesh.primitive_cube_add(size=1, enter_editmode=False, location=(0, ds_y_position, ds_z_position))
+ds1 = bpy.context.object
+ds1.scale.x = 5  
+ds1.scale.y = 1  
+ds1.scale.z = 0.1  
+
+# 在Substrate上方距離0.5，沿著Y軸方向放置第2層DS
+ds_y_position = 0  
+ds_z_position = substrate.scale.z + 0.55  
+
+bpy.ops.mesh.primitive_cube_add(size=1, enter_editmode=False, location=(0, ds_y_position, ds_z_position))
+ds2 = bpy.context.object
+ds2.scale.x = 5  
+ds2.scale.y = 1  
+ds2.scale.z = 0.1  
+
+# 在Substrate上方距離0.5，沿著Y軸方向放置第3層DS
+ds_y_position = 0  
+ds_z_position = substrate.scale.z + 0.85  
+
+bpy.ops.mesh.primitive_cube_add(size=1, enter_editmode=False, location=(0, ds_y_position, ds_z_position))
+ds3 = bpy.context.object
+ds3.scale.x = 5  
+ds3.scale.y = 1  
+ds3.scale.z = 0.1  
+
+# 在Substrate上方，沿著X軸方向放置Gate
+gate_x_position = 0  # X軸上的位置，根据需要进行调整
+gate_z_position = substrate.scale.z + 0.6  # 在Substrate上方
+
+bpy.ops.mesh.primitive_cube_add(size=1, enter_editmode=False, location=(gate_x_position, 0, gate_z_position))
+gate = bpy.context.object
+gate.scale.x = 1  # 長度為1，因為Blender的scale是相對於原始尺寸（2x2x2）的，所以設為5
+gate.scale.y = 5  # 寬度為10
+gate.scale.z = 1.2  # 高度為1.2
+
+# 為Gate添加半透明的熒光綠色材質
+gate_mat = bpy.data.materials.new(name="Gate_Material")
+gate_mat.diffuse_color = (0, 1, 0, 0.5)  # 熒光綠色，半透明
+gate_mat.use_nodes = True
+bsdf = gate_mat.node_tree.nodes["Principled BSDF"]
+bsdf.inputs[0].default_value = (0, 1, 0, 0.5)  # 熒光綠色，半透明
+bsdf.inputs[15].default_value = 0.5  # 設置透明度
+gate.data.materials.append(gate_mat)
