@@ -1,8 +1,8 @@
 # Patent_Analysis
 NTUT AI EMBA Patent Analysis Homework
 
-### Assignment 1: GAA modeling using Chatgpt and Blender
-### Assignment 2: Image symbol labeling
+### Assignment 1: GAA modeling using Chatgpt and Blender [https://github.com/fu402138670/Patent_Analysis/tree/main/Assignment1]
+### Assignment 2: Image symbol labeling [https://github.com/fu402138670/Patent_Analysis/tree/main/Assignment2]
 ### Assignment 3: Proximity search
 ### Assignment 4: Keyword family builder for Semi 
 ### Assignment 5: Semi Patent translator
