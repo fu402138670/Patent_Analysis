@@ -1,7 +1,7 @@
 # Patent_Analysis
 NTUT AI EMBA Patent Analysis Homework
 
-### Assignment 1: GAA modeling using Chatgpt and Blender (https://github.com/fu402138670/Patent_Analysis/tree/main/Assignment1)
+### Assignment 1: GAA modeling using Chatgpt and Blender [Assignment1](https://github.com/fu402138670/Patent_Analysis/tree/main/Assignment1)
 - Clock
 ![Clock by Blender](https://github.com/fu402138670/Patent_Analysis/blob/main/Assignment1/Clock.png)
 - GAA
