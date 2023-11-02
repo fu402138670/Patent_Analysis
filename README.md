@@ -14,6 +14,6 @@ NTUT AI EMBA Patent Analysis Homework
 ### Assignment 4: Keyword family builder for Semi 
 ### Assignment 5: Semi Patent translator
 ### Assignment 6: Patent claim generator
-### Presentation 1: Innovation proposal of the thesis/product/patent (Part I)
+[Presentation 1: Innovation proposal of the thesis/product/patent (Part I)](https://github.com/fu402138670/Patent_Analysis/blob/main/Presentation1/Intelligent_Patent_Analysis_20231029.pptx)
 ### Presentation 2: The patent search for a specified TSMC GAA patent (Part I)
 ### Presentation 3: Innovation proposal and patent search report (Part II)
