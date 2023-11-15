@@ -1,5 +1,5 @@
 """
-字元圖像化
+文字圖像化
 """
 
 import matplotlib.pyplot as plt
