@@ -38,4 +38,4 @@ for i in range(len(label_list)):
     symbol_descriptions.append(symbol)
 
 # 重繪圖面
-draw_image(image, detected_text, symbol_descriptions, font_file)
+draw_image(image, detected_text, symbol_descriptions, font_path)
